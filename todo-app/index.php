@@ -1,5 +1,4 @@
 <?php
-// Подключаем сессию и авторизацию
 session_start();
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/auth.php';
@@ -7,7 +6,6 @@ require_once __DIR__ . '/includes/auth.php';
 $is_logged_in = isset($_SESSION['user_id']);
 $user_id = $_SESSION['user_id'] ?? null;
 
-// Если авторизован — загружаем задачи
 $tasks = [];
 if ($is_logged_in) {
     $stmt = $pdo->prepare("SELECT * FROM tasks WHERE user_id = ? ORDER BY created_at DESC");
@@ -15,7 +13,6 @@ if ($is_logged_in) {
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// Обработка AJAX-запросов (если нужно — можно вынести в отдельный файл позже)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     header('Content-Type: application/json');
     
@@ -55,16 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-    <!-- Bootstrap 5.3.3 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Твой стиль -->
     <link href="/assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -87,8 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2 class="mb-4">Ваши задачи</h2>
-
-                <!-- Форма добавления задачи -->
                 <div class="card mb-4">
                     <div class="card-body">
                         <form id="addTaskForm">
@@ -102,8 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                         </form>
                     </div>
                 </div>
-
-                <!-- Список задач -->
                 <div id="tasksList">
                     <?php if (empty($tasks)): ?>
                         <div class="alert alert-info">Список задач пуст. Добавьте первую!</div>
@@ -132,13 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         </div>
     <?php endif; ?>
 </main>
-
 <?php include 'footer.php'; ?>
-
-<!-- Bootstrap JS (опционально, если нужен dropdown и т.п.) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Твой JS -->
 <script src="/assets/js/index.js"></script>
-
 </body>
 </html> 

@@ -1,8 +1,6 @@
-// index.js
 document.addEventListener('DOMContentLoaded', function () {
     const addForm = document.getElementById('addTaskForm');
     const tasksList = document.getElementById('tasksList');
-
     if (addForm) {
         addForm.addEventListener('submit', async function (e) {
             e.preventDefault();
@@ -19,16 +17,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
             });
             const data = await res.json();
-
             if (data.success) {
-                location.reload(); // или обновить список без перезагрузки
+                location.reload();
             } else {
                 alert('Ошибка: ' + (data.error || 'не удалось добавить задачу'));
             }
         });
     }
-
-    // Переключение статуса задачи
     document.querySelectorAll('.toggle-task').forEach(btn => {
         btn.addEventListener('click', async function () {
             const id = this.dataset.id;
@@ -43,8 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-
-    // Удаление задачи
     document.querySelectorAll('.delete-task').forEach(btn => {
         btn.addEventListener('click', async function () {
             if (!confirm('Удалить задачу?')) return;
