@@ -1,0 +1,32 @@
+| base |
+	| login  |
+	 index.php;
+	| logout |
+	 index.php;
+	| privacy |
+	auth_required.php;
+	header.php
+	footer.php
+	index.php
+	privacy.js
+	style.css;
+	| InviteLink |
+	index.php
+	baseinvite.php
+	style.css
+	invites.js
+	header.php
+	footer.php
+	index.scss
+	| tasks |
+	baselogins.php
+	baselogins.js
+	baselogins.css;
+	---------------
+	auth_required.php
+	footer.php
+	header.php
+	index.php
+	index.js
+	style.css
+	style.scss;
